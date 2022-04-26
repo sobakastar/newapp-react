@@ -1,15 +1,15 @@
 // import React from "react";
-import React, { useEffect, useState, useRef } from "react";
-import Button from "@mui/material/Button";
+import { useEffect, useRef, useState } from "react";
 import { TextField } from "@mui/material";
+import Button from "@mui/material/Button";
 
 // import "./Form.styles.css";
-// import { MyButton } from "../Example/Example";
-
 
 export const Counter = ({ randomNumber }) => {
-  // let count = 0;
   const [count, setCount] = useState(0);
+  // const countState = useState(0);
+  // const count = countState[0];
+  // const setCount = countState[1];
 
   useEffect(() => {
     console.log("like did mount");
@@ -18,7 +18,7 @@ export const Counter = ({ randomNumber }) => {
   useEffect(() => {
     console.log("like did mount + did update");
     return () => {
-      console.log("like will unmout no dependencies array");
+      console.log("like will unmount no dependencies array");
     };
   });
 
@@ -33,21 +33,22 @@ export const Counter = ({ randomNumber }) => {
   useEffect(() => {
     console.log("like did mount + count update or randomNumber update");
     return () => {
-      console.log("like will unmout  [count, randomNumber]");
+      console.log("like will unmount [count, randomNumber]");
     };
   }, [count, randomNumber]);
 
   useEffect(() => {
     return () => {
-      console.log("like will unmout");
+      console.log("like will unmount");
     };
   }, []);
 
   return (
     <div>
       <h4>{count}</h4>
-
-      <button onClick={() => setCount(count + 1)}>Click!</button>
+      <button onClick={() => setCount((prevCount) => prevCount + 1)}>
+        Click!
+      </button>
       <div>{randomNumber}</div>
     </div>
   );
@@ -59,16 +60,19 @@ export const Counter = ({ randomNumber }) => {
 
 //     console.log("child constructor");
 //     this.state = {
-//       count: 0,
+//       count: 10,
 //       name: "Alex",
 //     };
 //   }
+
 //   componentDidMount() {
 //     console.log("child did mount");
 //   }
+
 //   componentWillUnmount() {
 //     console.log("child will unmount");
 //   }
+
 //   componentDidUpdate(prevProps, prevState) {
 //     console.log("child did update", prevProps, prevState);
 //   }
@@ -78,7 +82,6 @@ export const Counter = ({ randomNumber }) => {
 //     return (
 //       <div>
 //         <h4>Child component</h4>
-//         <button onClick={this.increase}>Click!</button>
 //       </div>
 //     );
 //   }
@@ -95,23 +98,20 @@ export const Counter = ({ randomNumber }) => {
 
 //     console.log("constructor");
 //     this.state = {
-//       count: 0,
+//       count: 10,
 //       name: "Alex",
 //       showChild: false,
 //     };
 //   }
+
 //   componentDidMount() {
 //     console.log("component did mount");
-//     // this.interval = setInterval(() => {
-//     //   this.setState((prevState) => ({
-//     //     count: prevState.count + 1,
-//     //   }));
-//     // }, 1000);
 //   }
+
 //   componentWillUnmount() {
-//    // clearInterval(this.interval);
 //     console.log("component will unmount");
 //   }
+
 //   componentDidUpdate(prevProps, prevState) {
 //     console.log("component did update", prevProps, prevState);
 //   }
@@ -124,6 +124,7 @@ export const Counter = ({ randomNumber }) => {
 //       }
 //     );
 //   };
+
 //   decrease = () => {
 //     this.setState(
 //       (oldState) => ({ count: oldState.count - 1 }),
@@ -151,28 +152,23 @@ export const Counter = ({ randomNumber }) => {
 //   }
 // }
 
-// const a = true && 4; // true
-// const a1 = 4 && true; // true
-// const b = 0 && 4; // 0
-// const b1 = 4 && 0; // 0
-
-
 export const MyButton = ({ text, onClick, children }) => {
   console.log(children);
   return (
-  <div role="button" onClick={onClick}>
-    {children}
+    <div role="button" onClick={onClick}>
+      {children}
     </div>
-)};
+  );
+};
 
 export const ExampleForm = ({ onSubmit, render }) => {
   const [value, setValue] = useState("");
 
-
-const inputRef = useRef();
+  const inputRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     onSubmit(value);
     setValue("");
   };
@@ -185,7 +181,6 @@ const inputRef = useRef();
     console.log("did mount", inputRef);
     inputRef.current?.focus();
 
-
     return () => {
       console.log("will unmount");
     };
@@ -193,13 +188,11 @@ const inputRef = useRef();
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* <TextField  value={value} onChange={handleChange} inputRef={inputRef}/>
+   {/*<TextField value={value} onChange={handleChange} inputRef={inputRef} />
       <Button className="mybtn" type="submit" variant="contained">
         Submit
       </Button> */}
-     
-    
-        { render (value, handleChange)}
+      {render(value, handleChange)}
     </form>
   );
 };

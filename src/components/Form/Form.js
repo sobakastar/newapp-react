@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useRef } from "react";
-import Button from "@mui/material/Button";
+import { useEffect, useRef, useState } from "react";
 import { TextField } from "@mui/material";
+import Button from "@mui/material/Button";
+import { MyButton } from "../Example/Example";
 
 import "./Form.styles.css";
-// import { MyButton } from "../Example/Example";
 
 export const Form = ({ onSubmit }) => {
   const [value, setValue] = useState("");
 
-
-const inputRef = useRef();
+  const inputRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     onSubmit(value);
     setValue("");
   };
@@ -25,7 +25,6 @@ const inputRef = useRef();
     console.log("did mount", inputRef);
     inputRef.current?.focus();
 
-
     return () => {
       console.log("will unmount");
     };
@@ -33,15 +32,12 @@ const inputRef = useRef();
 
   return (
     <form onSubmit={handleSubmit}>
-     {/*<input value={value} onChange={handleChange} type="text" ref={inputRef} />*/}
-      {/*<input type="submit" />*/}
-      <TextField sx={{padding:0}} value={value} onChange={handleChange} inputRef={inputRef}/>
+      {/* <input value={value} onChange={handleChange} type="text" ref={inputRef} /> */}
+      {/* <input type="submit" /> */}
+      <TextField value={value} onChange={handleChange} inputRef={inputRef} />
       <Button className="mybtn" type="submit" variant="contained">
         Submit
       </Button>
-     {/* <MyButton text="Submit" onClick={handleSubmit}>
-       Between components tags
-        </MyButton> */}
     </form>
   );
 };
